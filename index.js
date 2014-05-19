@@ -18,6 +18,3 @@ var newLogger = function newLogger(name) {
 }
 
 module.exports = newLogger;
-
-// Temporary. For unupdated modules that don't instanciate logger explicitely.
-module.exports.info = winston.info;
