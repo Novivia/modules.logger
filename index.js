@@ -1,5 +1,9 @@
-var winston = require('winston'),
-    loggers = {};
+var winston   = require("winston"),
+    utilities = require("utilities");
+
+var __DEV__ = false// utilities.env.variables.__DEV__;
+
+var loggers = {};
 
 // Remove default (basic) console logger.
 winston.remove(winston.transports.Console);
@@ -13,8 +17,10 @@ var newLogger = function newLogger(name) {
 
   // Create transport for that name.
   return loggers[name] = new (winston.Logger)({
+    padLevels: true,
     transports: [
       new (winston.transports.Console)({
+        level: __DEV__ ? "verbose" : "info",
         prettyPrint: true,
         colorize: true,
         timestamp: function() { return new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''); },
