@@ -1,5 +1,11 @@
 # Versions
 
+## v0.2.1 - (07/08/2014)
+
+* Now wrapping logger implementation and providing utilities on the proxy.
+* Removed package.json in favor of package.json5 for yapm.
+* Added a README file describing how to install and use.
+
 ## v0.2.0 - (19/05/2014)
 
 * Now caching transports to only create them once per unique name.
