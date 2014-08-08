@@ -11,8 +11,8 @@ var loggers = {};
 // Utility to redirect a prototype call to a member implementation.
 function proxyMethod(proxyClass, implementationProperty, methodName) {
   proxyClass.prototype[methodName] = function() {
-    var implementation = this[implementationProperty][methodName];
-    implementation.apply(implementation, arguments);
+    var implementation = this[implementationProperty];
+    implementation[methodName].apply(implementation, arguments);
   };
 }
 
