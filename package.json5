@@ -18,9 +18,10 @@
     // along with labels. See:
     //  https://github.com/flatiron/winston/issues/352
     //  https://github.com/flatiron/winston/pull/431
-    "winston": "git+ssh://git@github.com/mathieumg/winston.git",
+    "winston": "git+ssh://git@github.com/mathieumg/winston",
 
-    "utilities": "git+ssh://git@stash.atx33.com:7999/auex/modules.utilities.git",
-    "lodash": "^2.4.1"
+    "utilities": "git+ssh://git@stash.atx33.com/auex/modules.utilities",
+    "lodash": "^2.4.1",
+    "pkginfo-json5": "git+ssh://git@github.com/mathieumg/pkginfo-json5#v0.4.0"
   }
 }
