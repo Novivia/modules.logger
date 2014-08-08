@@ -21,7 +21,7 @@ to generate the `package.json` file required by npm.
 ### Log a message
 
 ```javascript
-var logger = require("logger")("client-module-name");
+var logger = require("logger")(module);
 
 // Examples.
 logger.log("info", "message");
@@ -34,8 +34,8 @@ The log message will be prepended with the current date and time in the
 following format: **YYYY-MM-DD HH:MM:SS**. The timezone will be the local one
 when in development, UTC otherwise.
 
-The log message will also display the name of the originally provided
-"client-module-name" between brackets, to easily distinguish the emitter.
+The log message will also display between brackets the name of the package
+inferred from the provided module object, to easily distinguish the emitter.
 
 ***Note:*** Any uncaught exception will be caught by the logger, at which
             point it will display a detailed trace before exiting the
@@ -83,7 +83,7 @@ that is lowered to *verbose* in a development environment. If required, the
 minimum level can be changed by doing the following:
 
 ```javascript
-var logger = require("logger")("client-module-name");
+var logger = require("logger")(module);
 
 // Examples.
 logger.debug("message"); // Will not display.

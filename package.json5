@@ -20,7 +20,7 @@
     //  https://github.com/flatiron/winston/pull/431
     "winston": "git+ssh://git@github.com/mathieumg/winston",
 
-    "utilities": "git+ssh://git@stash.atx33.com/auex/modules.utilities",
+    "utilities": "git+ssh://stash.atx33.com/auex/modules.utilities",
     "lodash": "^2.4.1",
     "pkginfo-json5": "git+ssh://git@github.com/mathieumg/pkginfo-json5#v0.4.0"
   }
