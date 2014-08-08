@@ -1,0 +1,26 @@
+{
+  "name": "logger",
+  "version": "0.2.0",
+  "description": "Logger",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@stash.atx33.com:7999/auex/modules.logger.git"
+  },
+  "author": "Mathieu M-G",
+  "license": "BSD",
+  "dependencies": {
+    // Using this version for now to allow better level padding when used
+    // along with labels. See:
+    //  https://github.com/flatiron/winston/issues/352
+    //  https://github.com/flatiron/winston/pull/431
+    "winston": "git+ssh://git@github.com/mathieumg/winston.git",
+
+    "utilities": "git+ssh://git@stash.atx33.com:7999/auex/modules.utilities.git",
+    "lodash": "^2.4.1"
+  }
+}
