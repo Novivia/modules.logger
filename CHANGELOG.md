@@ -1,5 +1,10 @@
 # Versions
 
+## v0.2.2 - (08/08/2014)
+
+* Now possible to provide the module object as a paremeter to infer
+  the package name as the label.
+
 ## v0.2.1 - (07/08/2014)
 
 * Now wrapping logger implementation and providing utilities on the proxy.
