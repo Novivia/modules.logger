@@ -1,4 +1,5 @@
 var _         = require("lodash"),
+    pkginfo   = require("pkginfo-json5"),
     utilities = require("utilities"),
     winston   = require("winston");
 
@@ -10,8 +11,8 @@ var loggers = {};
 // Utility to redirect a prototype call to a member implementation.
 function proxyMethod(proxyClass, implementationProperty, methodName) {
   proxyClass.prototype[methodName] = function() {
-    var implementation = this[implementationProperty][methodName];
-    implementation.apply(implementation, arguments);
+    var implementation = this[implementationProperty];
+    implementation[methodName].apply(implementation, arguments);
   };
 }
 
@@ -90,7 +91,12 @@ LoggerProxy.prototype.setConsoleLevel = function(level) {
 }
 
 // Provide the appropriate logger each time we're called.
-function getLogger(name) {
+function getLogger(module) {
+  // Get the name from the module. If a string, assume it is directly the name.
+  var name = typeof module === "string" ?
+    module
+    : pkginfo(module, "name").name;
+
   // Verify if a logger is already cached for that name.
   if (loggers.hasOwnProperty(name)) {
     return loggers[name];
