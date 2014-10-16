@@ -1,18 +1,21 @@
 {
-  "name": "logger",
+  "name": "auex-logger",
+  "role": "logger",
   "version": "0.2.2",
-  "description": "Logger",
   "private": true,
+  "description": "AuctionEx event logger.",
+  "authors": [
+    "Mathieu M-Gosselin <mathieumg@novivia.com>",
+    "Maxime Poulin <mpoulin@novivia.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@git.novivia.com/auex/modules.logger.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@stash.atx33.com:7999/auex/modules.logger.git"
-  },
-  "author": "Mathieu M-G",
-  "license": "BSD",
   "dependencies": {
     // Using this version for now to allow better level padding when used
     // along with labels. See:
@@ -20,7 +23,7 @@
     //  https://github.com/flatiron/winston/pull/431
     "winston": "git+ssh://git@github.com/mathieumg/winston",
 
-    "utilities": "git+ssh://stash.atx33.com/auex/modules.utilities",
+    "utilities": "git+ssh://git.novivia.com/auex/modules.utilities",
     "lodash": "^2.4.1",
     "pkginfo-json5": "git+ssh://git@github.com/mathieumg/pkginfo-json5#v0.4.0"
   }
