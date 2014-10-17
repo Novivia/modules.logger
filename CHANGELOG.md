@@ -1,5 +1,13 @@
 # Versions
 
+## v0.3.0 - (17/10/2014)
+
+* Now resolving the label when registring a module with the following priority:
+  * String provided.
+  * Role in module provided.
+  * Name in module provided.
+  * Auto-assigned "unknown" ID.
+
 ## v0.2.2 - (08/08/2014)
 
 * Now possible to provide the module object as a paremeter to infer
