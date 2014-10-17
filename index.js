@@ -1,12 +1,13 @@
 var _         = require("lodash"),
     pkginfo   = require("pkginfo-json5"),
-    utilities = require("utilities"),
+    utilities = require("auex-utilities"),
     winston   = require("winston");
 
 var __DEV__ = utilities.env.variables.__DEV__;
 
 var defaultLevel = __DEV__ ? "verbose" : "info";
 var loggers = {};
+var unknownCount = 0;
 
 // Utility to redirect a prototype call to a member implementation.
 function proxyMethod(proxyClass, implementationProperty, methodName) {
@@ -92,10 +93,25 @@ LoggerProxy.prototype.setConsoleLevel = function(level) {
 
 // Provide the appropriate logger each time we're called.
 function getLogger(module) {
-  // Get the name from the module. If a string, assume it is directly the name.
-  var name = typeof module === "string" ?
-    module
-    : pkginfo(module, "name").name;
+  // Label value for the module.
+  var name;
+
+  if (typeof module === "string") {
+    // If a string, assume it is directly the label.
+    name = module;
+  } else {
+    // Otherwise, try the role field from the package.json(5) and then
+    // the name as a last resort.
+    var packageInfo = pkginfo(module, "name", "role");
+
+    if (packageInfo.role) {
+      name = packageInfo.role;
+    } else if (packageInfo.name) {
+      name = packageInfo.name;
+    } else {
+      name = "unknown-" + ++unknownCount;
+    }
+  }
 
   // Verify if a logger is already cached for that name.
   if (loggers.hasOwnProperty(name)) {
