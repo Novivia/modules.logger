@@ -1,7 +1,7 @@
 {
   "name": "auex-logger",
   "role": "logger",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "private": true,
   "description": "AuctionEx event logger.",
   "authors": [
@@ -14,7 +14,10 @@
   },
   "main": "index.js",
   "dependencies": {
+    // AuctionEx dependencies.
     "auex-utilities": "git+ssh://git.novivia.com/auex/modules.utilities",
+
+    // npm dependencies.
 
     // Using this version for now to allow better level padding when used
     // along with labels. See:
