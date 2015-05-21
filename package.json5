@@ -2,7 +2,9 @@
   "name": "auex-logger",
   "role": "logger",
   "version": "0.3.0",
-  "private": true,
+  "publishConfig":{
+    "registry": "https://npm.novivia.com"
+  },
   "description": "AuctionEx event logger.",
   "authors": [
     "Mathieu M-Gosselin <mathieumg@novivia.com>",
