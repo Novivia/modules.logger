@@ -1,7 +1,7 @@
 {
-  "name": "auex-logger",
+  "name": "@auex/logger",
   "role": "logger",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "publishConfig":{
     "registry": "https://npm.novivia.com"
   },
@@ -14,19 +14,26 @@
     "type": "git",
     "url": "git+ssh://git.novivia.com/auex/modules.logger"
   },
+  "scripts": {
+    "build": "build-module .",
+  },
   "main": "index.js",
+  "devDependencies": {
+    // AuctionEx dependencies.
+    "@auex/build-module": "git+ssh://git.novivia.com/auex/tools.build-module",
+  },
   "dependencies": {
     // AuctionEx dependencies.
     "auex-utilities": "git+ssh://git.novivia.com/auex/modules.utilities",
 
     // npm dependencies.
+    "lodash": "^2.4.1",
+    "pkginfo-json5": "git+ssh://git@github.com/mathieumg/pkginfo-json5#v0.4.0",
 
     // Using this version for now to allow better level padding when used
     // along with labels. See:
     //  https://github.com/flatiron/winston/issues/352
     //  https://github.com/flatiron/winston/pull/431
-    "lodash": "^2.4.1",
-    "pkginfo-json5": "git+ssh://git@github.com/mathieumg/pkginfo-json5#v0.4.0",
     "winston": "git+ssh://git@github.com/mathieumg/winston",
-  }
+  },
 }
