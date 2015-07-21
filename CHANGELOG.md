@@ -2,6 +2,7 @@
 
 ## v0.4.0 - (17/07/2015)
 
+* Package now built using the AuctionEx build tool (in beta).
 * Package now scoped under @auex and published in private npm.
 
 

@@ -2,7 +2,7 @@
   "name": "@auex/logger",
   "role": "logger",
   "version": "0.4.0",
-  "publishConfig":{
+  "publishConfig": {
     "registry": "https://npm.novivia.com"
   },
   "description": "AuctionEx event logger.",
@@ -15,7 +15,7 @@
     "url": "git+ssh://git.novivia.com/auex/modules.logger"
   },
   "scripts": {
-    "build": "build-module .",
+    "build": "build-module",
   },
   "main": "index.js",
   "devDependencies": {
