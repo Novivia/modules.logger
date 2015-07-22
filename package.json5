@@ -21,7 +21,7 @@
   "main": "index.js",
   "devDependencies": {
     // AuctionEx dependencies.
-    "@auex/build-module": "git+ssh://git.novivia.com/auex/tools.build-module",
+    "@auex/build-module": "^0.0.1",
   },
   "dependencies": {
     // AuctionEx dependencies.
