@@ -3,6 +3,7 @@
   "role": "logger",
   "version": "0.3.0",
   "private": true,
+  "license": "SEE LICENSE IN LICENSE.md",
   "description": "AuctionEx event logger.",
   "authors": [
     "Mathieu M-Gosselin <mathieumg@novivia.com>",
