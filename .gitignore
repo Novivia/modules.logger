@@ -31,3 +31,4 @@ bower_components
 # Intermediary files
 
 # Distribution files
+*.tar.gz
