@@ -1,5 +1,10 @@
 # Versions
 
+## v0.4.1 - (31/07/2015)
+
+* Bumped dependencies
+
+
 ## v0.4.0 - (17/07/2015)
 
 * Package now built using the AuctionEx build tool (in beta).
