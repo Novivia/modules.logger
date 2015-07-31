@@ -1,31 +1,42 @@
 {
-  "name": "auex-logger",
+  "name": "@auex/logger",
   "role": "logger",
-  "version": "0.3.0",
-  "private": true,
+  "version": "0.4.1",
+  "publishConfig": {
+    "registry": "https://npm.novivia.com"
+  },
   "license": "SEE LICENSE IN LICENSE.md",
   "description": "AuctionEx event logger.",
   "authors": [
     "Mathieu M-Gosselin <mathieumg@novivia.com>",
-    "Maxime Poulin <mpoulin@novivia.com>"
+    "Maxime Poulin <mpoulin@novivia.com>",
   ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git.novivia.com/auex/modules.logger"
   },
+  "scripts": {
+    "build": "build-module build",
+    "pub": "build-module publish",
+    "release": "build-module release",
+  },
   "main": "index.js",
+  "devDependencies": {
+    // AuctionEx dependencies.
+    "@auex/build-module": "^0.1.0",
+  },
   "dependencies": {
     // AuctionEx dependencies.
-    "auex-utilities": "git+ssh://git.novivia.com/auex/modules.utilities",
+    "@auex/utilities": "^0.1.0",
 
     // npm dependencies.
+    "lodash": "^2.4.1",
+    "pkginfo-json5": "^0.5.0",
 
     // Using this version for now to allow better level padding when used
     // along with labels. See:
     //  https://github.com/flatiron/winston/issues/352
     //  https://github.com/flatiron/winston/pull/431
-    "lodash": "^2.4.1",
-    "pkginfo-json5": "git+ssh://git@github.com/mathieumg/pkginfo-json5#v0.4.0",
     "winston": "git+ssh://git@github.com/mathieumg/winston",
-  }
+  },
 }

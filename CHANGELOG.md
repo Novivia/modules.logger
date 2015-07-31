@@ -1,5 +1,16 @@
 # Versions
 
+## v0.4.1 - (31/07/2015)
+
+* Bumped dependencies
+
+
+## v0.4.0 - (17/07/2015)
+
+* Package now built using the AuctionEx build tool (in beta).
+* Package now scoped under @auex and published in private npm.
+
+
 ## v0.3.0 - (17/10/2014)
 
 * Now resolving the label when registring a module with the following priority:
@@ -8,16 +19,19 @@
   * Name in module provided.
   * Auto-assigned "unknown" ID.
 
+
 ## v0.2.2 - (08/08/2014)
 
 * Now possible to provide the module object as a paremeter to infer
   the package name as the label.
+
 
 ## v0.2.1 - (07/08/2014)
 
 * Now wrapping logger implementation and providing utilities on the proxy.
 * Removed package.json in favor of package.json5 for yapm.
 * Added a README file describing how to install and use.
+
 
 ## v0.2.0 - (19/05/2014)
 

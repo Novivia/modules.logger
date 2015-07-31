@@ -1,6 +1,6 @@
 var _         = require("lodash"),
     pkginfo   = require("pkginfo-json5"),
-    utilities = require("auex-utilities"),
+    utilities = require("@auex/utilities"),
     winston   = require("winston");
 
 var __DEV__ = utilities.env.variables.__DEV__;
