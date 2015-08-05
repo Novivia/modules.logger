@@ -30,13 +30,9 @@
     "@auex/utilities": "^0.1.0",
 
     // npm dependencies.
-    "lodash": "^2.4.1",
+    "lodash": "^3.10.0",
     "pkginfo-json5": "^0.5.0",
-
-    // Using this version for now to allow better level padding when used
-    // along with labels. See:
-    //  https://github.com/flatiron/winston/issues/352
-    //  https://github.com/flatiron/winston/pull/431
-    "winston": "git+ssh://git@github.com/mathieumg/winston",
+    "winston": "^1.0.1",
+    "word-wrap": "^1.1.0",
   },
 }

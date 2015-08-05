@@ -1,18 +1,21 @@
 var _         = require("lodash"),
     pkginfo   = require("pkginfo-json5"),
     utilities = require("@auex/utilities"),
-    winston   = require("winston");
+    winston   = require("winston"),
+    wordwrap  = require("word-wrap");
 
 var __DEV__ = utilities.env.variables.__DEV__;
 
 var defaultLevel = __DEV__ ? "verbose" : "info";
 var loggers = {};
+var longestLabelLength = 0;
 var unknownCount = 0;
 
 // Utility to redirect a prototype call to a member implementation.
 function proxyMethod(proxyClass, implementationProperty, methodName) {
   proxyClass.prototype[methodName] = function() {
     var implementation = this[implementationProperty];
+
     implementation[methodName].apply(implementation, arguments);
   };
 }
@@ -20,34 +23,43 @@ function proxyMethod(proxyClass, implementationProperty, methodName) {
 // Utility to get the Date ISO 8601 string, but for the localtime.
 // See https://gist.github.com/peterbraden/752376
 function localISOString(d, ignoreTimezone) {
-  function pad (n) {
+  function pad(n) {
     return n < 10 ? "0" + n : n;
   }
 
   var timezone = ignoreTimezone ? 0 : d.getTimezoneOffset(), // mins
       timezoneSeconds =
         (timezone > 0 ? "-" : "+") +
-        pad(parseInt(Math.abs(timezone/60)));
+        pad(parseInt(Math.abs(timezone / 60), 10));
 
-    if (timezone % 60 !== 0) {
-      timezoneSeconds += pad(Math.abs(timezone % 60));
-    }
+  if (timezone % 60 !== 0) {
+    timezoneSeconds += pad(Math.abs(timezone % 60));
+  }
 
-    if (timezone === 0) {
-      // Zulu time == UTC
-      timezoneSeconds = ignoreTimezone ? "" : "Z";
-    }
+  if (timezone === 0) {
+    // Zulu time == UTC
+    timezoneSeconds = ignoreTimezone ? "" : "Z";
+  }
 
-    return d.getFullYear() + "-" +
-           pad(d.getMonth() + 1 ) + "-" +
-           pad(d.getDate()) + "T" +
-           pad(d.getHours()) + ":" +
-           pad(d.getMinutes()) + ":" +
-           pad(d.getSeconds()) + timezoneSeconds;
-};
+  return d.getFullYear() + "-" +
+         pad(d.getMonth() + 1 ) + "-" +
+         pad(d.getDate()) + "T" +
+         pad(d.getHours()) + ":" +
+         pad(d.getMinutes()) + ":" +
+         pad(d.getSeconds()) + timezoneSeconds;
+}
 
 // Remove default (basic) console logger.
 winston.remove(winston.transports.Console);
+
+var longestLevelLength = Math.max.apply(
+  null,
+  Object.keys(winston.config.npm.levels).map(
+    function(level) {
+      return level.length;
+    }
+  )
+);
 
 function LoggerProxy(name) {
   this.consoleTransport = new (winston.transports.Console)({
@@ -67,13 +79,45 @@ function LoggerProxy(name) {
         nowISOString = now.toISOString();
       }
 
-      return nowISOString.replace(/T/, ' ').replace(/\..+/, '');
+      return nowISOString.replace(/T/, " ").replace(/\..+/, "");
+    },
+    formatter: function(options) {
+      const timestamp = options.timestamp();
+
+      // FIXME: Avoid using Winston internals, see:
+      // https://github.com/winstonjs/winston/issues/603
+      const level = winston.config.colorize(options.level);
+      const message = options.message !== undefined ? options.message : "";
+      const meta = options.meta && Object.keys(options.meta).length ?
+        ` (\n\t${JSON.stringify(options.meta)})`
+      : "";
+      const maxLength = (
+        longestLabelLength + longestLevelLength - options.level.length + 3
+      );
+      const label = options.label ?
+        _.padLeft(` [${options.label}]`, maxLength)
+      : "";
+
+      const messagePrefix = `${timestamp} - ${level}:${label} `;
+      const wrappedMessage = wordwrap(
+        message,
+        {
+          cut: true,
+          indent: _.repeat(
+            " ",
+            messagePrefix.length + options.level.length - level.length
+          ),
+          width: 80,
+        }
+      )
+      .trim();
+
+      return `${messagePrefix}${wrappedMessage}${meta}`;
     },
     label: (name || undefined)
   });
 
   this.logger = new (winston.Logger)({
-    padLevels: true,
     transports: [
       this.consoleTransport
     ]
@@ -89,7 +133,7 @@ function LoggerProxy(name) {
 // to be displayed in the console.
 LoggerProxy.prototype.setConsoleLevel = function(level) {
   this.consoleTransport.level = level || defaultLevel;
-}
+};
 
 // Provide the appropriate logger each time we're called.
 function getLogger(module) {
@@ -118,8 +162,10 @@ function getLogger(module) {
     return loggers[name];
   }
 
+  longestLabelLength = Math.max(longestLabelLength, name.length);
+
   // Create transport for that name.
-  return loggers[name] = new LoggerProxy(name);
+  return (loggers[name] = new LoggerProxy(name));
 }
 
 module.exports = getLogger;
