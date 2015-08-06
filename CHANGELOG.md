@@ -1,6 +1,6 @@
 # Versions
 
-## v0.4.2 - (05/08/2015)
+## v0.4.2 - (06/08/2015)
 
 * Updated Winston to 1.0.
 * Now padding the log level and the log label together to minimize the waste of
