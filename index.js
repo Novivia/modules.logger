@@ -3,15 +3,14 @@ import cycle from "cycle";
 import {env} from "@auex/utilities";
 import {noMultiSpaceAfterLineFeed} from "tempura";
 import pkginfo from "pkginfo-json5";
-import sentryLogger from "sentry-logger";
+// import SentryLogger from "sentry-logger";
+import Sentry from "winston-sentry";
 import util from "util";
 import winston from "winston";
 
 // FIXME: Try to avoid using this, perhaps in Winston 2.x.
 import winstonCommon from "winston/lib/winston/common";
 import wordwrap from "word-wrap";
-
-// winston.add(sentryLogger, options);
 
 const {variables: {__DEV__}} = env;
 const defaultLevel = __DEV__ ? "verbose" : "info";
@@ -64,6 +63,7 @@ const longestLevelLength = Math.max(
 );
 
 function LoggerProxy(name) {
+  // Attach the console transport.
   this.consoleTransport = new (winston.transports.Console)({
     level: defaultLevel,
     handleExceptions: true,
@@ -148,11 +148,23 @@ function LoggerProxy(name) {
     label: (name || undefined)
   });
 
-  this.logger = new (winston.Logger)({
-    transports: [
-      this.consoleTransport
-    ],
+  // If not in development, attach the Sentry transport.
+  // this.sentryTransport = new SentryLogger({
+  //   dsn: "https://109f015a2e75455197aadadd67422f2a:4827d0f9f9d046c5a0c47bade44f8811@sentry.novivia.com/3",
+  //   level: "info",
+  // });
+
+  this.sentryTransport = new Sentry({
+    level: "info",
+    dsn: "https://109f015a2e75455197aadadd67422f2a:4827d0f9f9d046c5a0c47bade44f8811@sentry.novivia.com/3"
   });
+
+  // winston.add(sentryLogger, options);
+
+  const transports = [this.consoleTransport, this.sentryTransport];
+
+  // Attach the logger.
+  this.logger = new (winston.Logger)({transports});
 }
 
 // Redirect the "log" call and the basic logging levels.

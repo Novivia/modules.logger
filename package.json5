@@ -36,6 +36,7 @@
     "sentry-logger": "^3.0.3",
     "tempura": "^0.0.8",
     "winston": "^1.0.1",
+    "winston-sentry": "^0.0.7",
     "word-wrap": "^1.1.0",
   },
 }
