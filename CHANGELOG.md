@@ -1,5 +1,14 @@
 # Versions
 
+## v0.4.2 - (06/08/2015)
+
+* Updated Winston to 1.0.
+* Now padding the log level and the log label together to minimize the waste of
+  space and to align messages between lines.
+* Now hard wordwrapping messages at 80 columns and indenting the other lines
+  properly.
+
+
 ## v0.4.1 - (31/07/2015)
 
 * Bumped dependencies
