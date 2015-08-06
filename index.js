@@ -1,8 +1,13 @@
 var _         = require("lodash"),
+    cycle     = require("cycle"),
     pkginfo   = require("pkginfo-json5"),
+    util      = require("util"),
     utilities = require("@auex/utilities"),
     winston   = require("winston"),
     wordwrap  = require("word-wrap");
+
+// FIXME: Try to avoid using this, perhaps in Winston 2.x.
+var winstonCommon = require("winston/lib/winston/common");
 
 var __DEV__ = utilities.env.variables.__DEV__;
 
@@ -86,11 +91,40 @@ function LoggerProxy(name) {
 
       // FIXME: Avoid using Winston internals, see:
       // https://github.com/winstonjs/winston/issues/603
-      const level = winston.config.colorize(options.level);
+      const level = options.colorize ?
+        winston.config.colorize(options.level)
+      : options.level;
       const message = options.message !== undefined ? options.message : "";
-      const meta = options.meta && Object.keys(options.meta).length ?
-        ` (\n\t${JSON.stringify(options.meta)})`
-      : "";
+
+      // Watered down version of:
+      // https://github.com/winstonjs/winston/blob/d91b0315025b7e4db28adaf5feb54f9b4136f575/lib/winston/common.js#L213-L247
+      var meta = "";
+      var metaInfo = (
+        options.meta !== null &&
+        options.meta !== undefined &&
+        !(options.meta instanceof Error) ?
+          winstonCommon.clone(cycle.decycle(options.meta))
+        : options.meta || null
+      );
+
+      if (metaInfo !== null && metaInfo !== undefined) {
+        if (typeof metaInfo !== "object") {
+          meta += ` ${metaInfo}`;
+        } else if (Object.keys(metaInfo).length > 0) {
+          meta += (
+            " \n" +
+            util.inspect(
+              metaInfo,
+              false,
+              options.depth || null,
+              options.colorize
+            )
+          );
+        } else {
+          meta += ` ${winstonCommon.serialize(metaInfo)}`;
+        }
+      }
+
       const maxLength = (
         longestLabelLength + longestLevelLength - options.level.length + 3
       );
