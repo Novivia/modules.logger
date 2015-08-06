@@ -1,20 +1,23 @@
-var _         = require("lodash"),
-    cycle     = require("cycle"),
-    pkginfo   = require("pkginfo-json5"),
-    util      = require("util"),
-    utilities = require("@auex/utilities"),
-    winston   = require("winston"),
-    wordwrap  = require("word-wrap");
+import _ from "lodash";
+import cycle from "cycle";
+import {env} from "@auex/utilities";
+import {noMultiSpaceAfterLineFeed} from "tempura";
+import pkginfo from "pkginfo-json5";
+import sentryLogger from "sentry-logger";
+import util from "util";
+import winston from "winston";
 
 // FIXME: Try to avoid using this, perhaps in Winston 2.x.
-var winstonCommon = require("winston/lib/winston/common");
+import winstonCommon from "winston/lib/winston/common";
+import wordwrap from "word-wrap";
 
-var __DEV__ = utilities.env.variables.__DEV__;
+// winston.add(sentryLogger, options);
 
-var defaultLevel = __DEV__ ? "verbose" : "info";
-var loggers = {};
-var longestLabelLength = 0;
-var unknownCount = 0;
+const {variables: {__DEV__}} = env;
+const defaultLevel = __DEV__ ? "verbose" : "info";
+const loggers = {};
+let longestLabelLength = 0;
+let unknownCount = 0;
 
 // Utility to redirect a prototype call to a member implementation.
 function proxyMethod(proxyClass, implementationProperty, methodName) {
@@ -32,10 +35,10 @@ function localISOString(d, ignoreTimezone) {
     return n < 10 ? "0" + n : n;
   }
 
-  var timezone = ignoreTimezone ? 0 : d.getTimezoneOffset(), // mins
-      timezoneSeconds =
-        (timezone > 0 ? "-" : "+") +
-        pad(parseInt(Math.abs(timezone / 60), 10));
+  const timezone = ignoreTimezone ? 0 : d.getTimezoneOffset();
+  let timezoneSeconds = (
+    (timezone > 0 ? "-" : "+") + pad(parseInt(Math.abs(timezone / 60), 10))
+  );
 
   if (timezone % 60 !== 0) {
     timezoneSeconds += pad(Math.abs(timezone % 60));
@@ -46,24 +49,18 @@ function localISOString(d, ignoreTimezone) {
     timezoneSeconds = ignoreTimezone ? "" : "Z";
   }
 
-  return d.getFullYear() + "-" +
-         pad(d.getMonth() + 1 ) + "-" +
-         pad(d.getDate()) + "T" +
-         pad(d.getHours()) + ":" +
-         pad(d.getMinutes()) + ":" +
-         pad(d.getSeconds()) + timezoneSeconds;
+  return (noMultiSpaceAfterLineFeed`
+    ${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T
+    ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}
+    ${timezoneSeconds}
+  `);
 }
 
 // Remove default (basic) console logger.
 winston.remove(winston.transports.Console);
 
-var longestLevelLength = Math.max.apply(
-  null,
-  Object.keys(winston.config.npm.levels).map(
-    function(level) {
-      return level.length;
-    }
-  )
+const longestLevelLength = Math.max(
+  ...Object.keys(winston.config.npm.levels).map(level => level.length),
 );
 
 function LoggerProxy(name) {
@@ -72,9 +69,9 @@ function LoggerProxy(name) {
     handleExceptions: true,
     prettyPrint: true,
     colorize: true,
-    timestamp: function() {
-      var now = new Date();
-      var nowISOString;
+    timestamp: () => {
+      const now = new Date();
+      let nowISOString;
 
       if (__DEV__) {
         // ISO-like date, but do as if current timezone was UTC.
@@ -86,7 +83,7 @@ function LoggerProxy(name) {
 
       return nowISOString.replace(/T/, " ").replace(/\..+/, "");
     },
-    formatter: function(options) {
+    formatter: options => {
       const timestamp = options.timestamp();
 
       // FIXME: Avoid using Winston internals, see:
@@ -98,8 +95,8 @@ function LoggerProxy(name) {
 
       // Watered down version of:
       // https://github.com/winstonjs/winston/blob/d91b0315025b7e4db28adaf5feb54f9b4136f575/lib/winston/common.js#L213-L247
-      var meta = "";
-      var metaInfo = (
+      let meta = "";
+      const metaInfo = (
         options.meta !== null &&
         options.meta !== undefined &&
         !(options.meta instanceof Error) ?
@@ -142,7 +139,7 @@ function LoggerProxy(name) {
             messagePrefix.length + options.level.length - level.length
           ),
           width: 80,
-        }
+        },
       )
       .trim();
 
@@ -154,14 +151,14 @@ function LoggerProxy(name) {
   this.logger = new (winston.Logger)({
     transports: [
       this.consoleTransport
-    ]
+    ],
   });
 }
 
 // Redirect the "log" call and the basic logging levels.
 ["log"]
-  .concat(_.keys(winston.config.npm.levels))
-  .forEach(proxyMethod.bind(null, LoggerProxy, "logger"));
+.concat(Object.keys(winston.config.npm.levels))
+.forEach(proxyMethod.bind(null, LoggerProxy, "logger"));
 
 // Expose a method to allow the user to change the minimal logging level needed
 // to be displayed in the console.
@@ -170,9 +167,9 @@ LoggerProxy.prototype.setConsoleLevel = function(level) {
 };
 
 // Provide the appropriate logger each time we're called.
-function getLogger(module) {
+export default function getLogger(module) {
   // Label value for the module.
-  var name;
+  let name;
 
   if (typeof module === "string") {
     // If a string, assume it is directly the label.
@@ -180,7 +177,7 @@ function getLogger(module) {
   } else {
     // Otherwise, try the role field from the package.json(5) and then
     // the name as a last resort.
-    var packageInfo = pkginfo(module, "name", "role");
+    const packageInfo = pkginfo(module, "name", "role");
 
     if (packageInfo.role) {
       name = packageInfo.role;
@@ -201,5 +198,3 @@ function getLogger(module) {
   // Create transport for that name.
   return (loggers[name] = new LoggerProxy(name));
 }
-
-module.exports = getLogger;
