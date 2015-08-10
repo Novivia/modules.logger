@@ -3,7 +3,6 @@ import cycle from "cycle";
 import {env} from "@auex/utilities";
 import {noMultiSpaceAfterLineFeed} from "tempura";
 import pkginfo from "pkginfo-json5";
-// import SentryLogger from "sentry-logger";
 import Sentry from "winston-sentry";
 import util from "util";
 import winston from "winston";
@@ -62,7 +61,20 @@ const longestLevelLength = Math.max(
   ...Object.keys(winston.config.npm.levels).map(level => level.length),
 );
 
-function LoggerProxy(name) {
+function LoggerProxy(
+  name,
+  {
+    sentry: {
+      level = "error",
+      logger = name,
+      ...sentryRest
+    } = {},
+  } = {},
+) {
+  const options = {
+    sentry: {level, logger, ...sentryRest},
+  };
+
   // Attach the console transport.
   this.consoleTransport = new (winston.transports.Console)({
     level: defaultLevel,
@@ -147,21 +159,12 @@ function LoggerProxy(name) {
     },
     label: (name || undefined)
   });
+  const transports = [this.consoleTransport];
 
-  // If not in development, attach the Sentry transport.
-  // this.sentryTransport = new SentryLogger({
-  //   dsn: "https://109f015a2e75455197aadadd67422f2a:4827d0f9f9d046c5a0c47bade44f8811@sentry.novivia.com/3",
-  //   level: "info",
-  // });
-
-  this.sentryTransport = new Sentry({
-    level: "info",
-    dsn: "https://109f015a2e75455197aadadd67422f2a:4827d0f9f9d046c5a0c47bade44f8811@sentry.novivia.com/3"
-  });
-
-  // winston.add(sentryLogger, options);
-
-  const transports = [this.consoleTransport, this.sentryTransport];
+  // If a dsn is provided, attach the Sentry transport.
+  if (options.sentry.dsn) {
+    transports.push(this.sentryTransport = new Sentry(options.sentry));
+  }
 
   // Attach the logger.
   this.logger = new (winston.Logger)({transports});
@@ -179,7 +182,7 @@ LoggerProxy.prototype.setConsoleLevel = function(level) {
 };
 
 // Provide the appropriate logger each time we're called.
-export default function getLogger(module) {
+export default function getLogger(module, options) {
   // Label value for the module.
   let name;
 
@@ -208,5 +211,5 @@ export default function getLogger(module) {
   longestLabelLength = Math.max(longestLabelLength, name.length);
 
   // Create transport for that name.
-  return (loggers[name] = new LoggerProxy(name));
+  return (loggers[name] = new LoggerProxy(name, options));
 }

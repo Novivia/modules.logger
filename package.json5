@@ -33,7 +33,6 @@
     "cycle": "^1.0.3",
     "lodash": "^3.10.0",
     "pkginfo-json5": "^0.5.0",
-    "sentry-logger": "^3.0.3",
     "tempura": "^0.0.8",
     "winston": "^1.0.1",
     "winston-sentry": "^0.0.7",
