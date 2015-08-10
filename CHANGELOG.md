@@ -1,5 +1,12 @@
 # Versions
 
+## v0.4.3 - (10/08/2015)
+
+* Added support for logger options when initializing a logger.
+* Added support for a Sentry transport, DSN can be provided through the new
+  logger options feature.
+
+
 ## v0.4.2 - (06/08/2015)
 
 * Updated Winston to 1.0.
