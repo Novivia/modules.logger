@@ -23,19 +23,19 @@
   "main": "index.js",
   "devDependencies": {
     // AuctionEx dependencies.
-    "@auex/build-module": "^0.1.0",
+    "@auex/build-module": "^0.2.2",
   },
   "dependencies": {
     // AuctionEx dependencies.
-    "@auex/utilities": "^0.1.0",
+    "@auex/utilities": "^0.3.0",
 
     // npm dependencies.
     "cycle": "^1.0.3",
-    "lodash": "^3.10.0",
+    "lodash": "^3.10.1",
     "pkginfo-json5": "^0.5.0",
     "tempura": "^0.0.8",
-    "winston": "^1.0.1",
-    "winston-sentry": "^0.0.7",
+    "winston": "^2.1.1",
+    "winston-sentry": "^0.1.1",
     "word-wrap": "^1.1.0",
   },
 }
