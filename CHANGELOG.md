@@ -1,5 +1,14 @@
 # Versions
 
+## v0.5.0 - (12/01/2016)
+
+* Updated dependencies:
+    * `@auex/build-module` to v0.2.
+    * `@auex/utilities` to v0.3.
+    * `winston` to v2.
+    * `winston-sentry` to v0.1.
+
+
 ## v0.4.3 - (10/08/2015)
 
 * Added support for logger options when initializing a logger.
