@@ -1,5 +1,11 @@
 # Versions
 
+## v0.5.1 - (16/01/2016)
+
+* Rebuilt with a Babel fix (through the builder module) for a bug that caused
+  the v0.5.0 bundle to crash.
+
+
 ## v0.5.0 - (12/01/2016)
 
 * Updated dependencies:
