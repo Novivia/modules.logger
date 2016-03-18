@@ -57,6 +57,7 @@ function localISOString(d, ignoreTimezone) {
 // Remove default (basic) console logger.
 winston.remove(winston.transports.Console);
 
+let exitOnError = true;
 const longestLevelLength = Math.max(
   ...Object.keys(winston.config.npm.levels).map(level => level.length),
 );
@@ -72,7 +73,7 @@ function LoggerProxy(
   } = {},
 ) {
   const options = {
-    sentry: {level, logger, ...sentryRest},
+    sentry: {level, logger, patchGlobal: true, ...sentryRest},
   };
 
   // Attach the console transport.
@@ -163,11 +164,16 @@ function LoggerProxy(
 
   // If a dsn is provided, attach the Sentry transport.
   if (options.sentry.dsn) {
+    // We want to keep running if we have errors to send to a Sentry.
+    exitOnError = false;
     transports.push(this.sentryTransport = new Sentry(options.sentry));
   }
 
   // Attach the logger.
-  this.logger = new (winston.Logger)({transports});
+  this.logger = new (winston.Logger)({
+    exitOnError,
+    transports,
+  });
 }
 
 // Redirect the "log" call and the basic logging levels.

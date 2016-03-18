@@ -1,5 +1,11 @@
 # Versions
 
+## v0.5.2 - (18/03/2016)
+
+* Addressed an issue that caused thrown errors not to be sent to the
+  sentry server.
+
+
 ## v0.5.1 - (16/01/2016)
 
 * Rebuilt with a Babel fix (through the builder module) for a bug that caused
