@@ -1,5 +1,10 @@
 # Versions
 
+## v0.5.3 - (22/06/2016)
+
+* Pinned the `winston-sentry` dependency to v0.1.1.
+
+
 ## v0.5.2 - (18/03/2016)
 
 * Addressed an issue that caused thrown errors not to be sent to the

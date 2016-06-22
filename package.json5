@@ -1,7 +1,7 @@
 {
   "name": "@auex/logger",
   "role": "logger",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "publishConfig": {
     "registry": "https://npm.novivia.com"
   },
@@ -35,7 +35,10 @@
     "pkginfo-json5": "^0.5.0",
     "tempura": "^0.0.8",
     "winston": "^2.1.1",
-    "winston-sentry": "^0.1.1",
+
+    // FIXME: Remove pinning once
+    // https://github.com/guzru/winston-sentry/issues/31 is addressed.
+    "winston-sentry": "0.1.1",
     "word-wrap": "^1.1.0",
   },
 }
