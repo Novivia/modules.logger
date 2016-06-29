@@ -1,5 +1,10 @@
 # Versions
 
+## v0.5.4 - (29/06/2016)
+
+* Unpinned the winston-sentry dependency.
+
+
 ## v0.5.3 - (22/06/2016)
 
 * Pinned the `winston-sentry` dependency to v0.1.1.
