@@ -1,5 +1,12 @@
 # Versions
 
+## v0.5.5 - ()
+
+* Updated dependencies:
+    * `@novivia/build-module` to v0.3.
+    * `lodash` to v4.
+
+
 ## v0.5.4 - (29/06/2016)
 
 * Unpinned the winston-sentry dependency.

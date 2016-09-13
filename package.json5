@@ -22,19 +22,19 @@
   },
   "main": "index.js",
   "devDependencies": {
-    // AuctionEx dependencies.
-    "@auex/build-module": "^0.2.4",
+    // Novivia dependencies.
+    "@novivia/build-module": "^0.3.0",
   },
   "dependencies": {
     // AuctionEx dependencies.
-    "@auex/utilities": "^0.3.2",
+    "@auex/utilities": "^0.3.6",
 
     // npm dependencies.
     "cycle": "^1.0.3",
-    "lodash": "^3.10.1",
+    "lodash": "^4.15.0",
     "pkginfo-json5": "^0.5.0",
     "tempura": "^0.0.8",
-    "winston": "^2.1.1",
+    "winston": "^2.2.0",
     "winston-sentry": "^0.1.4",
     "word-wrap": "^1.1.0",
   },

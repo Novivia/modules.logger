@@ -139,7 +139,7 @@ function LoggerProxy(
         longestLabelLength + longestLevelLength - options.level.length + 3
       );
       const label = options.label ?
-        _.padLeft(` [${options.label}]`, maxLength)
+        _.padStart(` [${options.label}]`, maxLength)
       : "";
 
       const messagePrefix = `${timestamp} - ${level}:${label} `;
