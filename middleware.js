@@ -3,4 +3,4 @@
  * All rights reserved.
  */
 
-export default from "./lib";
+export default from "./lib/raven/makeSentryMiddleware";
