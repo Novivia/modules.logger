@@ -1,9 +1,21 @@
 # Versions
 
-## v0.5.5 - ()
+## v0.6.0 - (09/11/2016)
+
+* Project now maintained under the Novivia scope. (@novivia)
+* Project open-sourced.
+* Added utilities to collect logs from the frontend, see `frontend` and
+ `middleware` files.
+
+* New dependencies:
+    * `@novivia/linter`
+    * `@novivia/open-sourcer`
+    * `pkginfo-json5`
+    * `raven-js`
+    * `superagent`
 
 * Updated dependencies:
-    * `@novivia/build-module` to v0.3.
+    * `@novivia/build-module` to v0.5.
     * `lodash` to v4.
 
 
