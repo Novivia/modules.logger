@@ -1,6 +1,6 @@
 # Versions
 
-## v0.6.0 - ()
+## v0.6.0 - (09/11/2016)
 
 * Project now maintained under the Novivia scope. (@novivia)
 * Project open-sourced.
