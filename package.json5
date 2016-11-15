@@ -28,6 +28,9 @@
       "frontend.js",
       "middleware.js",
     ],
+
+    // Force compilation with frontend compatibility.
+    "compileTargets": {},
   },
   "devDependencies": {
     // Novivia dependencies.
