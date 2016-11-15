@@ -1,7 +1,7 @@
 {
   "name": "@novivia/logger",
   "role": "logger",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "license": "SEE LICENSE IN LICENSE.md",
   "description": "Novivia event logger.",
   "authors": [
@@ -23,7 +23,8 @@
     "babelPatterns": [
       "frontend.js",
       "middleware.js"
-    ]
+    ],
+    "compileTargets": {}
   },
   "devDependencies": {
     "@novivia/build-module": "^0.5.1",

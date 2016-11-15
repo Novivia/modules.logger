@@ -1,5 +1,10 @@
 # Versions
 
+## v0.6.1 - (15/11/2016)
+
+* Project compilation now targets the frontend.
+
+
 ## v0.6.0 - (09/11/2016)
 
 * Project now maintained under the Novivia scope. (@novivia)
