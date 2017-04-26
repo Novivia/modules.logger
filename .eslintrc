@@ -73,7 +73,9 @@
     "no-useless-escape": "error",
     "no-useless-rename": "error",
     "no-whitespace-before-property": "error",
-    "object-property-newline": "error",
+    "object-property-newline": ["error", {
+      "allowMultiplePropertiesPerLine": true
+    }],
     "one-var": ["error", "never"],
     "quotes": "error",
     "rest-spread-spacing": "error",
@@ -173,10 +175,9 @@
     "unicode-bom": "error",
     "valid-jsdoc": ["error", {
       "matchDescription": "^[A-Z](?:.|\\s)*?[.]$",
-      "prefer": {
-        "returns": "return"
-      },
-      "requireReturn": false
+      "requireParamDescription": false,
+      "requireReturn": false,
+      "requireReturnType": false
     }],
     "valid-typeof": ["error", {
       "requireStringLiterals": true
@@ -248,7 +249,7 @@
     "import/export": "error",
     "import/extensions": ["error", "never"],
     "import/first": "error",
-    "babel/generator-star-spacing": ["error", "after"],
+    "generator-star-spacing": "error",
     "import/max-dependencies": ["error", {
       "max": 30
     }],
@@ -256,7 +257,7 @@
     "babel/new-cap": "error",
     "import/newline-after-import": "error",
     "import/no-absolute-path": "error",
-    "babel/no-await-in-loop": "error",
+    "no-await-in-loop": "error",
     "no-class-assign": "error",
     "no-confusing-arrow": ["error", {
       "allowParens": true
@@ -267,7 +268,7 @@
     "no-dupe-class-members": "error",
     "no-duplicate-imports": "error",
     "no-empty-pattern": "error",
-    "no-invalid-this": 1,
+    "babel/no-invalid-this": "error",
     "no-mixed-requires": "error",
     "import/no-mutable-exports": "error",
     "import/no-named-default": "error",
@@ -279,6 +280,7 @@
       "ignore": ["build/locales/getLocales$", "js/render/prerenderSimple$"]
     }],
     "no-param-reassign": "error",
+    "no-return-await": "error",
     "no-template-curly-in-string": "error",
     "no-this-before-super": "error",
     "no-useless-concat": "error",
@@ -291,6 +293,7 @@
     "prefer-rest-params": "error",
     "prefer-spread": "error",
     "prefer-template": "error",
+    "require-await": "error",
     "require-yield": "error",
     "strict": ["error", "never"],
     "template-curly-spacing": "error",
@@ -303,11 +306,14 @@
     "flowtype/define-flow-type": "error",
     "flowtype/delimiter-dangle": ["error", "always-multiline"],
     "flowtype/no-dupe-keys": "error",
+    "flowtype/no-primitive-constructor-types": "error",
     "flowtype/object-type-delimiter": "error",
     "flowtype/require-parameter-type": ["error", {
-      "excludeArrowFunctions": "expressionsOnly"
+      "excludeArrowFunctions": true
     }],
-    "flowtype/require-return-type": "error",
+    "flowtype/require-return-type": ["error", {
+      "excludeArrowFunctions": true
+    }],
     "flowtype/require-valid-file-annotation": ["error", "never", {
       "annotationStyle": "block"
     }],
@@ -319,7 +325,7 @@
     "flowtype/space-after-type-colon": "error",
     "flowtype/space-before-generic-bracket": "error",
     "flowtype/space-before-type-colon": "error",
-    "flowtype/type-id-match": "error",
+    "flowtype/type-id-match": ["error", "^([A-Z][A-Za-z0-9]*)+(?:Type)?$"],
     "flowtype/union-intersection-spacing": "error",
     "flowtype/use-flow-type": "error",
     "you-dont-need-lodash-underscore/assign": "error",
@@ -328,7 +334,7 @@
     "you-dont-need-lodash-underscore/fill": "error",
     "you-dont-need-lodash-underscore/find-index": "error",
     "you-dont-need-lodash-underscore/index-of": "error",
-    "you-dont-need-lodash-underscore/is-na-n": "error",
+    "you-dont-need-lodash-underscore/is-nan": "error",
     "you-dont-need-lodash-underscore/join": "error",
     "you-dont-need-lodash-underscore/keys": "error",
     "you-dont-need-lodash-underscore/last-index-of": "error",
@@ -342,6 +348,9 @@
     "block-spacing": ["error", "never"],
     "brace-style": ["error", "1tbs", {
       "allowSingleLine": true
+    }],
+    "capitalized-comments": ["error", "always", {
+      "ignoreConsecutiveComments": true
     }],
     "comma-style": ["error", "last"],
     "computed-property-spacing": ["error", "never"],

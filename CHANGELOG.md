@@ -1,5 +1,12 @@
 # Versions
 
+## v0.6.2 - (26/04/2017)
+
+* Added the ability to capture custom breadcrumbs using the `captureBreadcrumb`
+  call.
+* Updated `superagent` dependency to v3.
+
+
 ## v0.6.1 - (15/11/2016)
 
 * Project compilation now targets the frontend.
