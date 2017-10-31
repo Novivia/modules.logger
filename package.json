@@ -2,44 +2,35 @@
   "name": "@novivia/logger",
   "role": "logger",
   "version": "0.6.3",
-  "publishConfig": {
-    "registry": "https://npm.novivia.com"
-  },
   "license": "SEE LICENSE IN LICENSE.md",
   "description": "Novivia event logger.",
   "authors": [
     "Mathieu M-Gosselin <mathieumg@novivia.com>",
-    "Maxime Poulin <mpoulin@novivia.com>",
+    "Maxime Poulin <mpoulin@novivia.com>"
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git.novivia.com/nov/modules.logger"
+    "url": "git@github.com:Novivia/modules.logger.git"
   },
   "scripts": {
     "build": "novivia-builder build",
     "lint": "novivia-linter lint .",
-    "open-source": "open-source",
     "pub": "novivia-builder publish",
-    "release": "novivia-builder release",
+    "release": "novivia-builder release"
   },
   "main": "index.js",
   "novivia-builder": {
     "babelPatterns": [
       "frontend.js",
-      "middleware.js",
+      "middleware.js"
     ],
-
-    // Force compilation with frontend compatibility.
-    "compileTargets": {},
+    "compileTargets": {}
   },
   "devDependencies": {
-    // Novivia dependencies.
     "@novivia/build-module": "^0.5.2",
-    "@novivia/linter": "^1.10.1",
-    "@novivia/open-sourcer": "^0.1.2",
+    "@novivia/linter": "^1.10.1"
   },
   "dependencies": {
-    // npm dependencies.
     "cycle": "^1.0.3",
     "lodash": "^4.17.4",
     "pkginfo-json5": "^0.5.0",
@@ -48,6 +39,6 @@
     "tempura": "^0.0.8",
     "winston": "^2.4.0",
     "winston-sentry": "^0.2.1",
-    "word-wrap": "^1.2.1",
-  },
+    "word-wrap": "^1.2.1"
+  }
 }
