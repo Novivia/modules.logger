@@ -1,5 +1,10 @@
 # Versions
 
+## v0.6.3 - (31/10/2017)
+
+* Updated `winston-sentry` dependency to v0.2.
+
+
 ## v0.6.2 - (26/04/2017)
 
 * Added the ability to capture custom breadcrumbs using the `captureBreadcrumb`
